@@ -1,8 +1,20 @@
 body {
     display: flex;
-    justify-content: center;
-    padding: 60px 0;
-    
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; 
+    padding-top: 60px;
+
+}
+
+.footer {
+    position: fixed;
+    padding: 5px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: rgb(71, 66, 66);
+    text-align: center;
 }
 
 #calculator {

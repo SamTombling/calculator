@@ -38,7 +38,7 @@ function operate(operator, a, b)
     return answer;
 }
 
-const buttons = document.querySelectorAll('button');
+const buttons = document.querySelectorAll('.visible');
 const display = document.querySelector('#display');
 let a = "";
 let b = "";
@@ -112,4 +112,10 @@ clear.addEventListener('click', () => {
     operators.forEach((operator) => {
         operator.removeAttribute('disabled');
     })
+})
+
+const deleteButton = document.querySelector('#del');
+
+deleteButton.addEventListener('click', () => {
+    display.textContent = display.textContent.slice(0, -1);
 })
