@@ -1,20 +1,21 @@
 function add(a, b) {
-    return parseInt(a) + parseInt(b);
+    return parseFloat(a) + parseFloat(b);
 }
 
 function subtract(a, b) {
-    return parseInt(a) - parseInt(b);
+    return parseFloat(a) - parseFloat(b);
 }
 
 function multiply(a, b) {
-    return parseInt(a) * parseInt(b);
+    return parseFloat(a) * parseFloat(b);
 }
 
 function divide(a, b) {
     if (a =='0' || b == '0') {
         return 'Nice try!';
     }
-    return parseInt(a) / parseInt(b);
+    let answer = parseFloat(a) / parseFloat(b);
+    return answer.toPrecision(10);
 }
 
 function operate(operator, a, b)
@@ -49,6 +50,8 @@ buttons.forEach((button) => {
     });
 });
 
+const operators = document.querySelectorAll('.operator');
+
 const numbers = document.querySelectorAll('.number');
 
 numbers.forEach((number) => {
@@ -59,18 +62,31 @@ numbers.forEach((number) => {
         } else {
             b += number.textContent;
             console.log(b);
+            operators.forEach((operator) => operator.removeAttribute('disabled'));
         }        
     });
 });
 
-const operators = document.querySelectorAll('.operator');
+
 
 operators.forEach((operator) => {
     operator.addEventListener('click', () => {
+        if (first == false) {            
+            a = operate(op, a, b);
+            display.textContent = a + operator.textContent;
+            b = "";
+            op = operator.textContent;
+            operators.forEach((operator) => {
+                operator.removeAttribute('disabled');});
+        } else {
         first = false;
         op = operator.textContent;
-    })
-})
+        operators.forEach((operator) => {
+            operator.setAttribute('disabled', 'true');
+        });
+        };
+    });
+});
 
 const equals = document.querySelector('#equals');
 
@@ -78,6 +94,10 @@ equals.addEventListener('click', () => {
     a = operate(op, a, b);
     display.textContent = a;
     b = "";
+    operators.forEach((operator) => {
+        operator.removeAttribute('disabled');
+    })
+    first = true;
 })
 
 
@@ -89,4 +109,7 @@ clear.addEventListener('click', () => {
     op = "";
     first = true;
     display.textContent = "";
+    operators.forEach((operator) => {
+        operator.removeAttribute('disabled');
+    })
 })
